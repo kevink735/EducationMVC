@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "courseAdd";
+}
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<h2>courseAdd</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr style="height:100pt"></tr>
+        <tr>
+            <td>@Html.Label("Course Name")</td>
+            <td>
+                @Html.TextBox("courseTxt")
+            </td>
+        </tr>
+       
+        <tr>
+            <td><button type="button" class="btn btn-default" onclick=" AddRecord(); ">Save</button> </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+}
+
+@section Scripts{
+
+    <script type="text/javascript">
+        function AddRecord() {
+
+            if ($("#courseTxt").val() == "") {
+                alert("Course can't be blank");
+                return false;
+            }
+
+ 
+            var courseTxt = $("#courseTxt")[0].value;
+            $.ajax({
+                url: '/Student/SaveCourse',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: '{ coursename:"' + courseTxt +  '"}',
+                success: function (result) {
+                    alert("success");
+                },
+                error: function (result) {
+                    alert(result);
+                }
+            });
+        }
+
+
+    </script>
+}

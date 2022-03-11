@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "MultipleButtonDemo";
+}
+
+<h2>MultipleButtonDemo</h2>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>First Button</td>
+            <td>
+                <button type="submit" class="btn btn-primary" value="First" id="First" name="First" formaction="@Url.Action("First")">
+                    <i class="glyphicon glyphicon-fast-forward"></i>
+                </button>
+            </td>
+
+        </tr>
+        <tr style="height:10px;"></tr>
+        <tr>
+            <td> Second Button</td>
+            <td>
+
+                <button type="submit" class="btn btn-primary" value="Second" id="Second" name="Second" formaction="@Url.Action("Second")">
+                    <i class="glyphicon glyphicon-fast-backward"></i>
+                </button>
+
+            </td>
+
+        </tr>
+
+    </table>
+}
+

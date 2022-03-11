@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Education.Models.Applicant>
+
+@{
+    ViewBag.Title = "Thanks for applying";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+
+<h2> Thanks for applying </h2>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-10">
+            <div class="display-field">
+             <img src="@Url.Content("~/Photos/TRUMP.jpg")" class="img-rounded" width="304" height="236" />
+    
+            </div>
+            @Html.DisplayFor(modelItem => item.firstname)
+            @Html.DisplayFor(modelItem => item.lastname)
+            @Html.DisplayFor(modelItem => item.photo)
+       </div>
+            }
+
+

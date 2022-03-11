@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Education.Models.student> 
+
+
+@{
+    ViewBag.Title = "GetAllstudents";
+}
+
+<h2>GetAllstudents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "student")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(modelItem => modelItem.firstname)
+            FirstName
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastname)
+            LastName
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+            Gender
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+            Address
+        </th>
+        <th>
+           @Html.DisplayNameFor(model => model.countryid) 
+            CountryId
+        </th>
+        <th></th>
+    </tr>
+
+    f@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.countryid)
+            </td>
+            <td>
+                @Html.ActionLink("StudentDetails", "StudentDetails", new { id = item.studentid, @class = "btn btn-link" }) |
+                @Html.ActionLink("DeleteRecord", "DeleteRecord", new { id = item.studentid, @class = "btn btn-link" })
+            </td>
+        </tr>
+    }
+
+</table>

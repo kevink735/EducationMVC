@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Education.Models.student> 
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<h2>Report</h2>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <table>
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="ShowReport" class="btn btn-default btn-success btn-lg" formaction="@Url.Action("ShowReport")" />
+
+            </td>
+            <td>
+
+                <input type="submit" value="ShowReportByid" class="btn btn-default btn-success btn-lg" formaction="@Url.Action("ShowReportById")" />
+
+
+            </td>
+        </tr>
+
+    </table>
+
+}
+
+<table id="mytable" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(modelItem => modelItem.firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th></th>
+        <th> <input type="checkbox" name="checkall" id="checkall" value="checkall" /> </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.HiddenFor(modelItem => item.studentid)
+            </td>
+            <td>
+                <input type="checkbox" name="check" id="check" />
+            </td>
+</tr>
+    }
+
+</table>
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <button type="button" class="btn btn-default" onclick=" report(); ">Report</button>
+    </div>
+</div>
+ 
+<script type="text/javascript">
+    $(function ()
+    {
+
+            $("#checkall").click(function () {
+            var attr = $("#checkall").attr;
+            alert("attr" + attr);
+            $("input[name='check']").attr("checked", this.checked);
+            alert("this.checked  " + this.checked);
+
+            $("input[name='check']").click(function () {
+                var checkval = $("input[name='check']").length;
+                var checkedval = $("input[name='check']:checked").length;
+                alert("checkval" + checkval);
+                alert("checkedval" + checkedval);
+                if ($("input[name='check']").length == $("input[name='check']:checked").length) {
+                  //  $("input[name='checkall']").attr("checked", true);
+                   $("input[name='checkall']").prop("checked", true);
+                    alert("all checked");
+                }
+                else {
+                   // $("input[name='checkall']").attr("checked", false);
+                   $("input[name='checkall']").prop("checked", false);
+
+                }
+            });
+        });
+    });
+
+    function report() {
+        var tableControl = document.getElementById('mytable');
+        var result = []
+        debugger
+        $("input[name='check']:checked", tableControl).each(function () {
+            result.push($(this).parent().prev().text());
+        });
+        alert(result);
+        $.ajax({
+            url: '/Reports/ShowReportById',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: '{ firstname:"' + firstname + '" ,lastname:"' + lastname + '",gender:"' + gender.val() + '" ,address:"' + address + '" ,country:"' + country.val() + '" ,sal:"' + sal + '"}',
+            success: function (result) {
+                alert("success");
+            },
+            error: function (result) {
+                alert(result);
+            }
+        });
+    };
+
+
+</script>
+ 

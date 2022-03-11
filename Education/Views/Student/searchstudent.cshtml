@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Education.Models.StudentDTO>
+
+@{
+    ViewBag.Title = "searchstudent";
+}
+
+<h2>searchstudent</h2>
+
+<div style="font-family:Arial"></div>
+ 
+@using (Html.BeginForm(FormMethod.Post))
+{
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Label("Search")
+            </th>
+            <th>
+              @Html.RadioButton("searchBy", "FirstName", new { id = "firstname", data_val = "true", data_val_required = "Please select one option." })   <text> FirstName </text> 
+               <!-- <input type="radio" name="FirstName" id="FirstName" value="1" data-val="true" data-val-required="The gender field is required." />-->
+            </th>
+            <th>
+                @Html.RadioButton("searchBy", "LastName" , new { id = "lastname", data_val = "true", data_val_required = "Please select one option." })    <text> LastName </text>
+                <!--<input type="radio" name="LastName" id="LastName" value="2" data-val="true" data-val-required="The gender field is required." />-->
+            </th>
+            <th>
+               @Html.TextBox("searchText", "Search Text", new { @class = "form-control" })  
+            </th>
+            <th>
+                <button type="submit" class="btn btn-primary" value="Search" id="Search" name="Search" formaction="@Url.Action("Search")">Search</button>
+            </th>
+        </tr>
+
+    </table>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.countryname)
+                </th>
+                <th></th>
+            </tr>
+
+       @if (Model != null)
+            {
+     
+             foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lastname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.countryname)
+                    </td>
+                    <td>
+                        @Html.ActionLink("StudentDetails", "StudentDetails", new { id = item.studentid, @class = "btn btn-link" }) |
+                        @Html.ActionLink("DeleteRecord", "DeleteRecord", new { id = item.studentid, @class = "btn btn-link" })
+                    </td>
+                </tr>
+        }
+
+       }
+        </table>
+
+        }
+
+
+
+

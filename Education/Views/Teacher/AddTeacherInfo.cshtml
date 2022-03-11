@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "AddTeacherInfo";
+}
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<h2>AddTeacherInfo</h2>
+
+@using (Html.BeginForm(new { id = "teachersal", name = "teachersal" }))
+{
+
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("First Name", null, new { @class = "control-label col-lg-2" })
+            <div class="col-md-20">
+                @Html.TextBox("firstname" , null, new { @class = "form-control input-sm ", maxlength = 10, placeholder = "first name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Last Name", new { @class = "control-label col-lg-2" })
+            <div class="col-md-20">
+                @Html.TextBox("lastname", null, new { @class = "form-control input-sm ", maxlength = 10, placeholder = "Last name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Gender", new { @class = "control-label col-md-2" })
+            <div class="col-md-20">
+                @Html.DropDownList("gender", new SelectList(
+                  new List<Object>{
+                       new { value = 0 , text = "--Select--"  },
+                       new { value = "M" , text = "Male" },
+                       new { value = "F", text = "Female"}
+                    },
+                  "value",  "text", 0), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Address", new { @class = "control-label col-md-2" })
+            <div class="col-md-20">
+                @Html.TextBox("address", null, new { @class = "form-control input-sm ", @maxlength = 100, placeholder = "Address" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Country", new { @class = "control-label col-md-2" })
+            <div class="col-md-20">
+                @Html.DropDownList("country", new System.Web.Mvc.SelectList(ViewBag.country,    "countryid", "countryname"), "--Select--", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Salary", new { @class = "control-label col-md-2" })
+            <div class="col-md-20">
+                @Html.TextBox("salary", null, new { @class = "form-control input-sm ", maxlength = 10, placeholder = "salary" })
+            </div>
+        </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-default" onclick=" AddRecord(); ">Save</button>
+        </div>
+    </div>
+
+
+    
+        </div>
+    
+        }
+        <!-- AT Html.Action("emprec", "Employee")    -->
+        @section Scripts{
+
+            <script type="text/javascript">
+                function AddRecord() {
+
+                    if ($("#firstname").val() == "") {
+                        alert("First Name type can't be blank");
+                        return false;
+                    }
+
+                    if ($("#lastname").val() == "") {
+                        alert("Lastname can't be blank");
+                        return false;
+                    }
+
+                    debugger
+                    if ($("#address").val() == "") {
+                        alert("Address can't be blank");
+                        return false;
+                    }
+
+                    var firstname = $("#firstname")[0].value;
+                    var lastname = $("#lastname")[0].value;
+                    var gender = $("#gender");
+                    var address = $("#address")[0].value;
+                    var country = $("#country");
+                    var sal  = $("#salary")[0].value;
+                    $.ajax({
+                        url: '/Teacher/Addteacherdetails',
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: '{ firstname:"' + firstname + '" ,lastname:"' + lastname + '",gender:"' + gender.val() + '" ,address:"' + address + '" ,country:"' + country.val() + '" ,sal:"' + sal + '"}',
+                        success: function (result) {
+                            alert("success");
+                        },
+                        error: function (result) {
+                            alert(result);
+                        }
+                    });
+                }
+
+
+
+
+            </script>
+        }

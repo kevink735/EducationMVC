@@ -1,0 +1,271 @@
+﻿@model Education.Models.Applicant
+
+@{
+    ViewBag.Title = "JobApplicantion";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+
+<h2>JobApplicantion</h2>
+
+@using (Html.BeginForm("JobApplicant", "JobApplicant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Applicant</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Label("male", "Male")
+                @Html.RadioButtonFor(model => model.gender, "male")
+                @Html.Label("female", "Female")
+                @Html.RadioButtonFor(model => model.gender, "female")
+                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*
+            <div class="form-group">
+                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.gender, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        *@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dob, new { id = "datepicker", htmlAttributes = new { @class = "datepicker" } })
+                @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*
+                <div class="form-group">
+                    @Html.LabelFor(model => model.stateid, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.stateid, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.stateid, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.countryid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.countryid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.countryid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.countryid, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.countryid, new System.Web.Mvc.SelectList(ViewBag.country, "countryid", "countryname"), "--Select--", new { id = "cid", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.countryid)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.stateid, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (ViewBag.staterec != null)
+                {
+                    @Html.DropDownListFor(model => model.stateid, new System.Web.Mvc.SelectList(ViewBag.staterec, "stateid", "state"), "--Select--", new { id = "sid", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.stateid)
+
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.stateid, Enumerable.Empty<SelectListItem>(), "-- Select  --", new { id = "sid", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.stateid)
+
+
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.jobid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.jobid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.jobid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        *@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.jobid, new System.Web.Mvc.SelectList(ViewBag.job, "jobid", "jobtitle"), "--Select--", new { id = "jid", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.jobid)
+            </div>
+        </div>
+
+
+        @* START upload file  *@
+        <div class="form-group">
+            @Html.Label("Upload File", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("file", "", new { type = "file", @class = "control-label col-md-2" }) <br />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Apply" class="btn btn-default btn-success btn-lg" formaction="@Url.Action("JobApplicant")" />
+            </div>
+        </div>
+        @*  END upload file *@
+
+    </div>
+
+    @*
+    <div class="container">
+        <table class="table table-condensed">
+            <tbody>
+                <tr>
+                    <td>@Html.TextBox("file", "", new { type = "file", @class = "control-label col-md-2" })</td>
+                    <td><input type="submit" value="Apply" class="btn btn-default btn-success btn-lg" formaction="@Url.Action("Upload")" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-20">
+            @TempData["Message"]
+        </div>
+    </div>
+
+    </div>
+
+    }
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Apply" class="btn btn-default btn-success btn-lg" />
+        </div>
+    </div>
+
+    *@
+}
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    @section Scripts{
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <script type="text/javascript">
+
+            $(function () {
+                $(".datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+            });
+
+            $(document).ready(function () {
+                $("#cid").change(function () {
+                    var conid = $("#cid").val();
+                    $("#sid").empty();
+                    var json = { id: conid };
+                    $.ajax({
+                        url: '/Applicant/AjaxMethod',
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(json),
+                        success: function (data) {
+                            $("#sid").append('<option>------Select--------</option>');
+                            $.each(data, function (key, value) {
+                                $("#sid").append('<option value=' + value.stateid + ' >' + value.state + '</option>');
+                            });
+
+
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    });
+                    return false;
+                })
+
+            });
+
+
+            function AddRecord() {
+                var t = $("#sid");
+                $.ajax({
+                    url: '/Employeedemo/test',
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: '{ id:"' + t.val() + '" }',
+                    success: function (result) {
+                        alert("success");
+                    },
+                    error: function (result) {
+                        alert(result);
+                    }
+                });
+
+            }
+
+        </script>
+    }

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoredProcedureModelStoreContainer" CdmEntityContainer="StoredProcedureAppEntities1">
+    <EntitySetMapping Name="students">
+      <EntityTypeMapping TypeName="StoredProcedureModel.student">
+        <MappingFragment StoreEntitySet="students">
+          <ScalarProperty Name="studentid" ColumnName="studentid" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="countryid" ColumnName="countryid" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

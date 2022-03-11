@@ -1,0 +1,42 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Education.Models.Jobs>
+
+@{
+    ViewBag.Title = "Jobs";
+}
+
+<h2>Jobs</h2>
+
+<center><h3 style="color:blueviolet">Job Openings</h3></center>
+<center>
+    <h4 style="color:whitesmoke">Available job openings:</h4>
+</center>
+<table class="table table-bordered" style="width:60%" align="center">
+    <tr style="background-color:white">
+
+        <th>Job ID</th>
+        <th>Job Type</th>
+        <th>Job Title</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="background-color:azure">
+            <td>
+                @Html.DisplayFor(modelItem => item.jobid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jobtype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jobtitle)
+            </td>
+        </tr>
+    }
+
+</table>
+<div align="center">
+    @Html.PagedListPager(Model, Page => Url.Action("Jobs", new { Page, pagesize = Model.PageSize }))
+</div>
